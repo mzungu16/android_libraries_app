@@ -2,7 +2,7 @@ package com.gleb.android_libraries_app.data.allUsersRepo
 
 import androidx.recyclerview.widget.DiffUtil
 
-class DiffCallBack(
+class DiffCallBackUsers(
     private val oldList: List<Users>,
     private val newList: List<Users>
 ) : DiffUtil.Callback() {
