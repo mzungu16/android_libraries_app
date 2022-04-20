@@ -31,6 +31,6 @@ class AllUsersActivity : AppCompatActivity(), AllUsersAdapter.OnClickListener {
     }
 
     override fun onClick(position: Int) {
-        TODO("Not yet implemented")
+        //todo
     }
 }

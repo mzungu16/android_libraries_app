@@ -6,7 +6,6 @@ import com.gleb.android_libraries_app.data.allUsersRepo.Users
 
 class AllUsersViewModel(private val repo: RepositoryImpl) : ViewModel(), ViewModelProvider.Factory {
     private val liveDataToObserve: MutableLiveData<List<Users>> = MutableLiveData()
-//    private val repo = RepositoryImpl()
 
     fun getLiveData(): LiveData<List<Users>> =
         Transformations.switchMap(liveDataToObserve) {
