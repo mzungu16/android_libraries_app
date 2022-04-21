@@ -25,4 +25,8 @@ class UserViewModel(private val repo: Repository.UserRepository) : ViewModel(),
         )
     }
 
+    override fun onCleared() {
+        compDisposable.clear()
+        super.onCleared()
+    }
 }

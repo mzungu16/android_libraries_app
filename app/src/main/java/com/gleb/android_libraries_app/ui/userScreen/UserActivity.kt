@@ -3,8 +3,6 @@ package com.gleb.android_libraries_app.ui.userScreen
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.gleb.android_libraries_app.app
