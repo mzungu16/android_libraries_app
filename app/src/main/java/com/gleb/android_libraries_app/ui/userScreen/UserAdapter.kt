@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gleb.android_libraries_app.R
 import com.gleb.android_libraries_app.data.userRepo.DiffCallBackRepo
-import com.gleb.android_libraries_app.data.userRepo.Repos
+import com.gleb.android_libraries_app.data.userRepo.retrofit2.ReposPojo
+import org.w3c.dom.Text
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    var reposList: List<Repos> = listOf()
+    private var reposList: List<ReposPojo> = listOf()
 
-    fun setList(reposListParam: List<Repos>) {
+    fun setList(reposListParam: List<ReposPojo>) {
         val diffCallBack = DiffCallBackRepo(this.reposList, reposListParam)
         DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
             diffResult.dispatchUpdatesTo(this)
@@ -35,9 +36,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     override fun getItemCount() = reposList.size
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val repoId = view.findViewById<TextView>(R.id.repo_id)
         private val repoName = view.findViewById<TextView>(R.id.repo_name)
-        fun binding(item: Repos) {
-            repoName.text = item.text
+        fun binding(item: ReposPojo) {
+            repoId.text = item.id.toString()
+            repoName.text = item.name
         }
     }
 }
