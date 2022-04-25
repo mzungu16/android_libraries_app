@@ -1,26 +1,32 @@
 package com.gleb.android_libraries_app.ui.userScreen
 
 import androidx.lifecycle.*
-import com.gleb.android_libraries_app.data.userRepo.Repos
-import com.gleb.android_libraries_app.data.userRepo.RepositoryImplUser
+import com.gleb.android_libraries_app.data.userRepo.retrofit2.ReposPojo
+import com.gleb.android_libraries_app.domain.Repository
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class UserViewModel(private val repo: RepositoryImplUser) : ViewModel(), ViewModelProvider.Factory {
-    private val liveDataToObserve: MutableLiveData<List<Repos>> = MutableLiveData()
+class UserViewModel(private val repo: Repository.UserRepository) : ViewModel(),
+    ViewModelProvider.Factory {
 
-    fun getLiveDataFromRepo(): LiveData<List<Repos>> =
-        Transformations.switchMap(liveDataToObserve) {
-            repo.getAllRepos()
-        }
+    private val compDisposable = CompositeDisposable()
+    private val _repos = MutableLiveData<List<ReposPojo>>()
+    val repos: LiveData<List<ReposPojo>> = _repos
 
-    fun setLiveData() {
-        liveDataToObserve.value = getLiveDataFromRepo().value
-    }
-
-    fun getInternet() {
-        repo.getInternetAccess()
-    }
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return UserViewModel(repo) as T
+    }
+
+    fun showRepos(userName: String) {
+        compDisposable.add(
+            repo.observeUsersRepo(userName).subscribeBy {
+                _repos.postValue(it)
+            }
+        )
+    }
+
+    override fun onCleared() {
+        compDisposable.clear()
+        super.onCleared()
     }
 }

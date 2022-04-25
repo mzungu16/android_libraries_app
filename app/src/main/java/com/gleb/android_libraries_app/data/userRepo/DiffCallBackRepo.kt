@@ -1,11 +1,11 @@
 package com.gleb.android_libraries_app.data.userRepo
 
 import androidx.recyclerview.widget.DiffUtil
-import com.gleb.android_libraries_app.data.allUsersRepo.Users
+import com.gleb.android_libraries_app.data.userRepo.retrofit2.ReposPojo
 
 class DiffCallBackRepo(
-    private val oldList: List<Repos>,
-    private val newList: List<Repos>
+    private val oldList: List<ReposPojo>,
+    private val newList: List<ReposPojo>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int {
         return oldList.size

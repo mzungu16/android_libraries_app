@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.gleb.android_libraries_app.R
 import com.gleb.android_libraries_app.data.allUsersRepo.DiffCallBackUsers
-import com.gleb.android_libraries_app.data.allUsersRepo.Users
+import com.gleb.android_libraries_app.data.allUsersRepo.retrofit.UsersPojo
 
 class AllUsersAdapter(private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<AllUsersAdapter.MainViewHolder>() {
-    var usersList: List<Users> = listOf()
+    var usersList: List<UsersPojo> = listOf()
 
-    fun setList(usersListParam: List<Users>) {
+    fun setList(usersListParam: List<UsersPojo>) {
         val diffCallBack = DiffCallBackUsers(this.usersList, usersListParam)
         DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
             diffResult.dispatchUpdatesTo(this)
@@ -45,8 +45,8 @@ class AllUsersAdapter(private val onClickListener: OnClickListener) :
             itemView.setOnClickListener(this)
         }
 
-        fun binding(item: Users) {
-            avatar.load(item.image)
+        fun binding(item: UsersPojo) {
+            avatar.load(item.avatar_url)
             login.text = item.login
         }
 

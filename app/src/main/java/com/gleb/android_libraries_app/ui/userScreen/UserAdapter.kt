@@ -3,18 +3,18 @@ package com.gleb.android_libraries_app.ui.userScreen
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Button
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.gleb.android_libraries_app.R
 import com.gleb.android_libraries_app.data.userRepo.DiffCallBackRepo
-import com.gleb.android_libraries_app.data.userRepo.Repos
+import com.gleb.android_libraries_app.data.userRepo.retrofit2.ReposPojo
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    var reposList: List<Repos> = listOf()
+    private var reposList: List<ReposPojo> = listOf()
 
-    fun setList(reposListParam: List<Repos>) {
+    fun setList(reposListParam: List<ReposPojo>) {
         val diffCallBack = DiffCallBackRepo(this.reposList, reposListParam)
         DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
             diffResult.dispatchUpdatesTo(this)
@@ -35,9 +35,9 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     override fun getItemCount() = reposList.size
 
     inner class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val repoName = view.findViewById<TextView>(R.id.repo_name)
-        fun binding(item: Repos) {
-            repoName.text = item.text
+        private val repoName = view.findViewById<Button>(R.id.repo_name)
+        fun binding(item: ReposPojo) {
+            repoName.text = item.name
         }
     }
 }
