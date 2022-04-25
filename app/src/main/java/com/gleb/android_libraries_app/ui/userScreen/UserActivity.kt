@@ -10,7 +10,7 @@ import com.gleb.android_libraries_app.databinding.ActivityUserBinding
 
 class UserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserBinding
-    private val viewModel: UserViewModel by viewModels { UserViewModel(app.userRepo) }
+    private val viewModel: UserViewModel by viewModels { UserViewModel(app.userUsecase) }
     private val userAdapter = UserAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {

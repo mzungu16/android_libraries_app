@@ -12,7 +12,7 @@ import com.gleb.android_libraries_app.ui.userScreen.UserActivity
 
 class AllUsersActivity : AppCompatActivity(), AllUsersAdapter.OnClickListener {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: AllUsersViewModel by viewModels { AllUsersViewModel(app.usersRepo) }
+    private val viewModel: AllUsersViewModel by viewModels { AllUsersViewModel(app.usersUsecase) }
     private val allUsersAdapter = AllUsersAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
