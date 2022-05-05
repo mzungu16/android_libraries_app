@@ -12,15 +12,14 @@ import com.gleb.android_libraries_app.data.userRepo.retrofit2.ReposPojo
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private var reposList: List<ReposPojo> = listOf()
-
-    fun setList(reposListParam: List<ReposPojo>) {
-        val diffCallBack = DiffCallBackRepo(this.reposList, reposListParam)
-        DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
-            diffResult.dispatchUpdatesTo(this)
+     var reposList: List<ReposPojo> = listOf()
+        set(reposListParam) {
+            val diffCallBack = DiffCallBackRepo(this.reposList, reposListParam)
+            DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
+                diffResult.dispatchUpdatesTo(this)
+            }
+            field = reposListParam
         }
-        reposList = reposListParam
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context)

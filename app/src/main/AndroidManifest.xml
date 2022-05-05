@@ -14,10 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Android_libraries_app">
         <activity
-            android:name=".ui.userScreen.UserActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.allUsersScreen.AllUsersActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

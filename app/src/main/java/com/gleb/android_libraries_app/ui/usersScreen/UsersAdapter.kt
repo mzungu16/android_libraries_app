@@ -1,4 +1,4 @@
-package com.gleb.android_libraries_app.ui.allUsersScreen
+package com.gleb.android_libraries_app.ui.usersScreen
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,17 +12,16 @@ import com.gleb.android_libraries_app.R
 import com.gleb.android_libraries_app.data.allUsersRepo.DiffCallBackUsers
 import com.gleb.android_libraries_app.data.allUsersRepo.retrofit.UsersPojo
 
-class AllUsersAdapter(private val onClickListener: OnClickListener) :
-    RecyclerView.Adapter<AllUsersAdapter.MainViewHolder>() {
+class UsersAdapter(private val onClickListener: OnClickListener) :
+    RecyclerView.Adapter<UsersAdapter.MainViewHolder>() {
     var usersList: List<UsersPojo> = listOf()
-
-    fun setList(usersListParam: List<UsersPojo>) {
-        val diffCallBack = DiffCallBackUsers(this.usersList, usersListParam)
-        DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
-            diffResult.dispatchUpdatesTo(this)
+        set(usersListParam) {
+            val diffCallBack = DiffCallBackUsers(this.usersList, usersListParam)
+            DiffUtil.calculateDiff(diffCallBack).also { diffResult ->
+                diffResult.dispatchUpdatesTo(this)
+            }
+            field = usersListParam
         }
-        usersList = usersListParam
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
         val view = LayoutInflater.from(parent.context)
