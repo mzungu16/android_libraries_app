@@ -6,21 +6,8 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
-class UsersRepositoryImpl : Repository.UsersRepository {
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-
-    private val api: RetrofitInt = retrofit.create(RetrofitInt::class.java)
-
-
+class UsersRepositoryImpl(private val api: RetrofitInt) : Repository.UsersRepository {
     override fun observeUsers(): Single<List<UsersPojo>> {
         return Single.create { singleEmitter ->
             val call = api.getUsers()
