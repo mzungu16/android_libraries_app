@@ -39,6 +39,9 @@ android {
 dependencies {
     implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.3'
 
+    //Koin
+    implementation "io.insert-koin:koin-android:3.1.6"
+
     // Rx
     implementation "io.reactivex.rxjava3:rxjava:3.1.4"
     implementation "io.reactivex.rxjava3:rxkotlin:3.0.1"

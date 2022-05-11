@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.api.load
 import com.gleb.android_libraries_app.R
-import com.gleb.android_libraries_app.app
 import com.gleb.android_libraries_app.databinding.UserFragmentBinding
+import com.gleb.android_libraries_app.domain.ProjectUsecase
+import org.koin.android.ext.android.inject
 
 class UserFragment : Fragment() {
     private val binding by viewBinding(UserFragmentBinding::class.java)
     private val userAdapter = UserAdapter()
+    private val userUsecase: ProjectUsecase.UserUsecase by inject()
 
     companion object {
         private const val IMAGE_KEY = "image"
@@ -42,9 +44,8 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val avatar = arguments?.getString(IMAGE_KEY)
         val login = arguments?.getString(LOGIN_KEY)
-        val app = requireContext().app
         val viewModel =
-            ViewModelProvider(this, UserViewModel(app.userUsecase)).get(UserViewModel::class.java)
+            ViewModelProvider(this, UserViewModel(userUsecase)).get(UserViewModel::class.java)
         binding.avatarImage.load(avatar)
         binding.userName.text = login
         initRecyclerView()

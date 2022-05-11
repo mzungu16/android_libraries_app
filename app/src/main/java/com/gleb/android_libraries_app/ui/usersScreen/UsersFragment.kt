@@ -12,15 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.gleb.android_libraries_app.R
-import com.gleb.android_libraries_app.app
 import com.gleb.android_libraries_app.data.allUsersRepo.retrofit.UsersPojo
 import com.gleb.android_libraries_app.databinding.UsersFragmentBinding
+import com.gleb.android_libraries_app.domain.ProjectUsecase
+import org.koin.android.ext.android.inject
 
 class UsersFragment : Fragment(), UsersAdapter.OnClickListener {
     private val binding by viewBinding(UsersFragmentBinding::class.java)
     private val allUsersAdapter = UsersAdapter(this)
     private val controller by lazy { activity as Controller }
     private var backColor = Color.WHITE
+    private val usersUsecase: ProjectUsecase.UsersUsecase by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,10 +37,9 @@ class UsersFragment : Fragment(), UsersAdapter.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val app = requireContext().app
         val viewModel = ViewModelProvider(
             this,
-            UsersViewModel(app.usersUsecase)
+            UsersViewModel(usersUsecase)
         ).get(UsersViewModel::class.java)
 
         initRecyclerView()

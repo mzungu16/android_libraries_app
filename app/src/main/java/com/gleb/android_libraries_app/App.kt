@@ -1,23 +1,21 @@
 package com.gleb.android_libraries_app
 
 import android.app.Application
-import android.content.Context
-import com.gleb.android_libraries_app.data.allUsersRepo.UsersUsecaseImpl
-import com.gleb.android_libraries_app.data.allUsersRepo.retrofit.UsersRepositoryImpl
-import com.gleb.android_libraries_app.data.userRepo.UserRepositoryImpl
-import com.gleb.android_libraries_app.data.userRepo.UserUsecaseImpl
-import com.gleb.android_libraries_app.domain.ProjectUsecase
-
-//import com.gleb.android_libraries_app.data.userRepo.RepositoryImplUser
+import com.gleb.android_libraries_app.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 class App : Application() {
-    private val usersRepo by lazy { UsersRepositoryImpl() }
-    private val userRepo by lazy { UserRepositoryImpl() }
-    val usersUsecase: ProjectUsecase.UsersUsecase by lazy { UsersUsecaseImpl(usersRepo) }
-    val userUsecase: ProjectUsecase.UserUsecase by lazy { UserUsecaseImpl(userRepo) }
-}
 
-val Context.app: App
-    get() {
-        return applicationContext as App
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
+            androidContext(this@App)
+            modules(appModule)
+        }
     }
+
+}
