@@ -10,14 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.api.load
 import com.gleb.android_libraries_app.R
+import com.gleb.android_libraries_app.app
 import com.gleb.android_libraries_app.databinding.UserFragmentBinding
 import com.gleb.android_libraries_app.domain.ProjectUsecase
-import org.koin.android.ext.android.inject
+import javax.inject.Inject
 
 class UserFragment : Fragment() {
     private val binding by viewBinding(UserFragmentBinding::class.java)
     private val userAdapter = UserAdapter()
-    private val userUsecase: ProjectUsecase.UserUsecase by inject()
+
+    @Inject
+    lateinit var userUsecase: ProjectUsecase.UserUsecase
 
     companion object {
         private const val IMAGE_KEY = "image"
@@ -42,6 +45,7 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireContext().app.daggerComponent.injectU(this)
         val avatar = arguments?.getString(IMAGE_KEY)
         val login = arguments?.getString(LOGIN_KEY)
         val viewModel =

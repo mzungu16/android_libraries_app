@@ -1,21 +1,21 @@
 package com.gleb.android_libraries_app
 
 import android.app.Application
-import com.gleb.android_libraries_app.di.appModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
-import org.koin.core.logger.Level
+import android.content.Context
+import com.gleb.android_libraries_app.di.DaggerComponent
+import com.gleb.android_libraries_app.di.DaggerDaggerComponent
 
 class App : Application() {
-
+    lateinit var daggerComponent: DaggerComponent
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidLogger(if (BuildConfig.DEBUG) Level.ERROR else Level.NONE)
-            androidContext(this@App)
-            modules(appModule)
-        }
+        daggerComponent = DaggerDaggerComponent
+            .builder()
+            .build()
     }
-
 }
+
+val Context.app: App
+    get() {
+        return applicationContext as App
+    }
